@@ -6,6 +6,7 @@ import subprocess
 from pathlib import Path
 import numpy as np
 import pandas as pd
+import natsort
 
 def _cli_parser():
     """Reads command line arguments and returns input specifications"""
@@ -39,12 +40,14 @@ def main():
     print(params)
     sub_data = []
     sub_count = 1
-    for dirname in os.listdir(params['d']):
 
+    directories = natsort.natsorted(os.listdir(params['d']))
+    for dirname in directories:
         in_path = os.path.join(params['d'], dirname)
-        if dirname in params['ignore']:
-            print('Skipping {}'.format(in_path))
-            continue
+        if params['ignore'] is not None:
+            if dirname in params['ignore']:
+                print('Skipping {}'.format(in_path))
+                continue
         else:
             print('Processing {}'.format(in_path))
 

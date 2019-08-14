@@ -16,6 +16,11 @@ setup(
     author='Dan Gale',
     long_description=open('README.md').read(),
     url='https://github.com/danjgale/bidsify',
+    install_requires=[
+        'numpy',
+        'pandas',
+        'natsort'
+    ],
     tests_require=test_deps,
     extras_require=extras,
     setup_requires=['pytest-runner'],

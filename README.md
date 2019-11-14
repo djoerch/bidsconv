@@ -5,6 +5,9 @@ Like putting your fMRI data into [BIDS](https://bids.neuroimaging.io/) format? L
 Bidsify is a multi-subject wrapper for `dcm2bids`, which lets you easily convert full data sets into BIDS format. Nothing special to it other than looping over multiple subject and session directories! `bidsify` will also create your `participants.tsv` file, as well as blank `README`, `CHANGES` and `dataset_description.json` files.  
 
 To install:
+
+You must have `dcm2bids` installed first.
+
 ```
 git clone git@github.com:danjgale/bidsify.git
 cd bidsify/

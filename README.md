@@ -1,6 +1,6 @@
 # bidsify
 
-Like putting your fMRI data into [BIDS](https://bids.neuroimaging.io/) format? Like using [`dcm2bids`](https://cbedetti.github.io/Dcm2Bids/) to do so? Too lazy to use a for loop to iterate your `dcm2bids` call through each subject in your data? If you're like me and answered yes to all of the above, then `bidsify` is for you!
+Like putting your fMRI data into [BIDS](https://bids.neuroimaging.io/) format? Like using [`dcm2bids`](https://cbedetti.github.io/Dcm2Bids/) to do so? Too lazy to use a for-loop to iterate through each subject and call `dcm2bids`? If you're like me and answered yes to all of the above, then `bidsify` is for you!
 
 Bidsify is a multi-subject wrapper for `dcm2bids`, which lets you easily convert full data sets into BIDS format. Nothing special to it other than looping over multiple subject and session directories! `bidsify` will also create your `participants.tsv` file, as well as blank `README`, `CHANGES` and `dataset_description.json` files.  
 
@@ -45,4 +45,4 @@ optional arguments:
                         folders belong to the same subject.
 ```
 
-**Note:** This package was developed for the [Memory, Action, and Perception](http://www.gallivanmaplab.com/home) lab here at Queen's University, and works for us quite well. That said, it's not a fully-tested one-size-fits-all tool for your BIDS conversions. And it's definitely in it's early stages. So, if you run into any problems please let us know by creating an issue. If it's *really* not working, then using `dcm2bids` directly is probably much easier!
+**Note:** This package was developed for the [Memory, Action, and Perception](http://www.gallivanmaplab.com/home) lab here at Queen's University, and works for us quite well. That said, it's not a fully-tested one-size-fits-all tool for your BIDS conversions. And it's definitely in its early stages. So, if you run into any problems please let us know by creating an issue on Github. If it's *really* not working, then using `dcm2bids` directly is probably much easier!

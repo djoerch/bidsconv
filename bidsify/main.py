@@ -15,11 +15,11 @@ def _cli_parser():
     parser.add_argument('-d', type=str, metavar='dicom_dir',
                         help="The path to the directory which contains all "
                              "subjects' dicom images.")
-    parser.add_argument('--ignore', nargs='+', type=str, metavar='ignored_dirs',
-                        help="Subdirectories in `-d` to ignore.")
     parser.add_argument('-o', type=str, metavar='output_dir',
                         help="The path to the directory which contains all "
                              "subjects' BIDS data.")
+    parser.add_argument('--ignore', nargs='+', type=str, metavar='ignored_dirs',
+                        help="Subdirectories in `-d` to ignore.")
     parser.add_argument('-s', type=str, metavar='session',
                         help="Session number.")
     parser.add_argument('-c', type=str.lower, metavar='config',

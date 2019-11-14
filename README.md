@@ -26,17 +26,18 @@ If you have multiple sessions, you'll need to call `bidsify` for each session:
 The full CLI can be shown by calling `bidsify -h`:
 
 ```
-usage: bidsify [-h] [-d dicom_dir] [--ignore ignored_dirs [ignored_dirs ...]]
-               [-o output_dir] [-s session] [-c config] [-m config]
+usage: bidsify [-h] [-d dicom_dir] [-o output_dir]
+               [--ignore ignored_dirs [ignored_dirs ...]] [-s session]
+               [-c config] [-m mapping]
 
 optional arguments:
   -h, --help            show this help message and exit
   -d dicom_dir          The path to the directory which contains all subjects'
                         dicom images.
-  --ignore ignored_dirs [ignored_dirs ...]
-                        Subdirectories in `-d` to ignore.
   -o output_dir         The path to the directory which contains all subjects'
                         BIDS data.
+  --ignore ignored_dirs [ignored_dirs ...]
+                        Subdirectories in `-d` to ignore.
   -s session            Session number.
   -c config             Configuration .json file for dcm2bids.
   -m mapping            .json file containing specific mappings between input

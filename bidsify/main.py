@@ -24,6 +24,7 @@ def _cli_parser():
                         help="Session number.")
     parser.add_argument('-c', type=str.lower, metavar='config',
                         help='Configuration .json file for dcm2bids.')
+    parser.add_argument('--force-run-labels', action='store_true')
     parser.add_argument('-m', type=str.lower, metavar='config',
                         help='.json file containing specific mappings between '
                              'input dicom folders (keys) and subject IDs (values). '
@@ -39,6 +40,42 @@ def _run_dcm2bids(sub_id, config, output_path, dicom_path, session=None):
         cmd_str += " -s {}".format(session)
     print(cmd_str)
     subprocess.run(cmd_str, shell=True)
+
+
+def _label_runs(path):
+    """Provide a run label for singleton runs
+
+    dcm2bids only gives run label if more than one detected per task. Identify
+    files without run labels, which means that they are singletons, and give
+    these files a run-01 label.
+
+    This is a necessary workaround for fmriprep 1.4.0-1.4.1, which fails to
+    generate report figures for files without a run label if at a run label is
+    found in at least one file.
+    See: https://neurostars.org/t/missing-runs-from-reports/4758
+
+    Parameters
+    ----------
+    path : str
+        Path to subject/session bids output
+    """
+
+    if not os.listdir(path):
+        raise ValueError('No files found in path')
+
+    if not [i.endswith('bold.nii.gz') for i in os.listdir(path)]:
+        raise Exception('No functional BOLD files found in dir')
+
+    for i in os.listdir(path):
+        if '_run-' not in i:
+            fname = i.split('_')
+            fname.insert(-1, 'run-01')
+            labeled_fname = '_'.join(fname)
+            src_file = os.path.join(path, i)
+            dst_file = os.path.join(path, labeled_fname)
+            os.rename(src_file, dst_file)
+            # print(src_file, dst_file)
+            print("(!) : {} => Run label added".format(i))
 
 
 def main():
@@ -72,6 +109,20 @@ def main():
         _run_dcm2bids(sub_id, params['c'], params['o'], in_path,
                       session=params['s'])
 
+        if params['force_run_labels']:
+
+            if not sub_id.startswith('sub-'):
+                sub_dir = 'sub-' + sub_id
+            else:
+                sub_dir = sub_id
+
+            if params['s'] is not None:
+                func_path = os.path.join(params['o'], sub_dir, params['s'], 'func')
+            else:
+                func_path = os.path.join(params['o'], sub_dir, 'func')
+
+            if os.path.isdir(func_path):
+                _label_runs(func_path)
     # participants.tsv file. Avoid overwriting if already exists
     sub_data = pd.DataFrame(np.array(sub_data),
                             columns=['participant_id', 'dicom_dir'])

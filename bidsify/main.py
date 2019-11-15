@@ -15,17 +15,17 @@ def _cli_parser():
     parser.add_argument('-d', type=str, metavar='dicom_dir',
                         help="The path to the directory which contains all "
                              "subjects' dicom images.")
-    parser.add_argument('--ignore', nargs='+', type=str, metavar='ignored_dirs',
-                        help="Subdirectories in `-d` to ignore.")
     parser.add_argument('-o', type=str, metavar='output_dir',
                         help="The path to the directory which contains all "
                              "subjects' BIDS data.")
+    parser.add_argument('--ignore', nargs='+', type=str, metavar='ignored_dirs',
+                        help="Subdirectories in `-d` to ignore.")
     parser.add_argument('-s', type=str, metavar='session',
                         help="Session number.")
     parser.add_argument('-c', type=str.lower, metavar='config',
                         help='Configuration .json file for dcm2bids.')
     parser.add_argument('--force-run-labels', action='store_true')
-    parser.add_argument('-m', type=str.lower, metavar='config',
+    parser.add_argument('-m', type=str.lower, metavar='mapping',
                         help='.json file containing specific mappings between '
                              'input dicom folders (keys) and subject IDs (values). '
                              'Useful for multi-session data in which different '
@@ -136,12 +136,3 @@ def main():
     Path(os.path.join(params['o'], 'README')).touch()
     Path(os.path.join(params['o'], 'CHANGES')).touch()
     Path(os.path.join(params['o'], 'dataset_description.json')).touch()
-
-
-
-
-
-
-
-
-

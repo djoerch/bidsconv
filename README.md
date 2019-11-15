@@ -31,7 +31,7 @@ The full CLI can be shown by calling `bidsify -h`:
 ```
 usage: bidsify [-h] [-d dicom_dir] [-o output_dir]
                [--ignore ignored_dirs [ignored_dirs ...]] [-s session]
-               [-c config] [-m mapping]
+               [-c config] [--force-run-labels] [-m mapping]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -41,12 +41,20 @@ optional arguments:
                         BIDS data.
   --ignore ignored_dirs [ignored_dirs ...]
                         Subdirectories in `-d` to ignore.
-  -s session            Session number.
-  -c config             Configuration .json file for dcm2bids.
+  -s session            Session number, e.g., 'ses-01'
+  -c config             Configuration .json file for dcm2bids. Refer to
+                        dcm2bids documentation for examples.
+  --force-run-labels    Force all functional runs to have a run number. This
+                        means that singleton runs, i.e. tasks that have only
+                        one functional run will be labeled as `run-01`. This
+                        is a necessary workaround for fmriprep 1.4.0 or
+                        greater. Otherwise, singleton runs will not have a run
+                        number/label, which is the default for dcm2bids.
   -m mapping            .json file containing specific mappings between input
                         dicom folders (keys) and subject IDs (values). Useful
                         for multi-session data in which different dicom
                         folders belong to the same subject.
+
 ```
 
 **Note:** This package was developed for the [Memory, Action, and Perception](http://www.gallivanmaplab.com/home) lab here at Queen's University, and works for us quite well. That said, it's not a fully-tested one-size-fits-all tool for your BIDS conversions. And it's definitely in its early stages. So, if you run into any problems please let us know by creating an issue on Github. If it's *really* not working, then using `dcm2bids` directly is probably much easier!

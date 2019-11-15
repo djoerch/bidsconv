@@ -21,10 +21,18 @@ def _cli_parser():
     parser.add_argument('--ignore', nargs='+', type=str, metavar='ignored_dirs',
                         help="Subdirectories in `-d` to ignore.")
     parser.add_argument('-s', type=str, metavar='session',
-                        help="Session number.")
+                        help="Session number, e.g., 'ses-01'")
     parser.add_argument('-c', type=str.lower, metavar='config',
-                        help='Configuration .json file for dcm2bids.')
-    parser.add_argument('--force-run-labels', action='store_true')
+                        help='Configuration .json file for dcm2bids. Refer to '
+                             'dcm2bids documentation for examples.')
+    parser.add_argument('--force-run-labels', action='store_true', 
+                        help='Force all functional runs to have a run number. '
+                             'This means that singleton runs, i.e. tasks that '
+                             'have only one functional run will be labeled '
+                             'as `run-01`. This is a necessary workaround for '
+                             'fmriprep 1.4.0 or greater. Otherwise, singleton '
+                             'runs will not have a run number/label, which is '
+                             'the default for dcm2bids.')
     parser.add_argument('-m', type=str.lower, metavar='mapping',
                         help='.json file containing specific mappings between '
                              'input dicom folders (keys) and subject IDs (values). '

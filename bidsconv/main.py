@@ -160,7 +160,7 @@ def main():
     
     sub_data.to_csv(participants_file, sep='\t')
 
-    os.makedirs(os.path.join(params['o']), 'derivatives')
+    os.makedirs(os.path.join(params['o'], 'derivatives'))
     Path(os.path.join(params['o'], 'README')).touch()
     Path(os.path.join(params['o'], 'CHANGES')).touch()
     Path(os.path.join(params['o'], '.bidsignore')).touch()

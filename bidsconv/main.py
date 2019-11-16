@@ -4,6 +4,7 @@ import argparse
 import shutil
 import subprocess
 import json
+import warnings
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -131,16 +132,36 @@ def main():
 
             if os.path.isdir(func_path):
                 _label_runs(func_path)
-    # participants.tsv file. Avoid overwriting if already exists
+
     sub_data = pd.DataFrame(np.array(sub_data),
                             columns=['participant_id', 'dicom_dir'])
+
     participants_file = os.path.join(params['o'], 'participants.tsv')
     if os.path.isfile(participants_file):
-        print('(!) participants.tsv already detected. '
-              'Adding second to be manually merged. (!)')
-        participants_file = os.path.join(params['o'], 'participants2.tsv')
+        # check if this multi-session data
+        if (params['s'] is not None) & (params['m'] is not None):
+            print('Existing participants.tsv found; dicom directories will be '
+                  'merged in file according to {}. You will need to adjust '
+                  'the column names to reflect the multiple '
+                  'sessions'.format(params['m']))
+            participants = pd.read_table(participants_file)
+            sub_data = participants.merge(sub_data, on='participant_id')
+        else:
+            # avoid overwriting if this is a re-run
+            warnings.warn('participants.tsv already detected, which is likely '
+                          'due to running bidsconv multiple times for the same '
+                          'output directory. No session label and and ' 
+                          'participant mapping were provided. A '
+                          '`participants_1.tsv` file has been created to '
+                          'prevent the original from being overwritten. Only '
+                          'one participants file can exist so you will have to '
+                          'adjust things accordingly.', Warning)
+            participants_file = os.path.join(params['o'], 'participants_1.tsv')
+    
     sub_data.to_csv(participants_file, sep='\t')
 
+    os.makedirs(os.path.join(params['o']), 'derivatives')
     Path(os.path.join(params['o'], 'README')).touch()
     Path(os.path.join(params['o'], 'CHANGES')).touch()
+    Path(os.path.join(params['o'], '.bidsignore')).touch()
     Path(os.path.join(params['o'], 'dataset_description.json')).touch()

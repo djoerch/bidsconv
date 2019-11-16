@@ -8,14 +8,14 @@ extras = {
 }
 
 setup(
-    name='bidsify',
+    name='bidsconv',
     version='0.0.1',
     packages=find_packages(exclude=["*.tests", "*.tests.*", "tests.*",
                                     "tests"]),
     license='MIT',
     author='Dan Gale',
     long_description=open('README.md').read(),
-    url='https://github.com/danjgale/bidsify',
+    url='https://github.com/danjgale/bidsconv',
     install_requires=[
         'numpy',
         'pandas',
@@ -26,7 +26,7 @@ setup(
     setup_requires=['pytest-runner'],
     entry_points={
         'console_scripts': [
-            'bidsify=bidsify.main:main'
+            'bidsconv=bidsconv.main:main'
             ]
         }
 )

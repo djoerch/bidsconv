@@ -6,7 +6,11 @@ Bidsconv is a multi-subject wrapper for `dcm2bids`, which lets you easily conver
 
 To install:
 
-You must have `dcm2bids` installed first.
+You must have `dcm2bids` installed first. To install `dcm2bids`:
+
+`pip install dcm2bids`
+
+Then, install `bidsconv`:
 
 ```
 git clone git@github.com:danjgale/bidsconv.git

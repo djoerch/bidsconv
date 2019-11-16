@@ -19,6 +19,7 @@ pip install -e .
 ```
 
 To run:
+
 `bidsconv -d your-dicom-directory -o your-bids-directory -c your-bids-config-file.json`
 
 Where `your-dicom-directory` is a directory that has one sub-directory per subject, and `your-bids-directory` is your empty BIDS directory that you wish to create.  

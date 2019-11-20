@@ -22,7 +22,8 @@ pip install -e .
 
 To run:
 
-`bidsconv -d your-dicom-directory -o your-bids-directory -c your-bids-config-file.json`
+`$ bidsconv -d your-dicom-directory -o your-bids-directory \
+   -c your-bids-config-file.json`
 
 Where `your-dicom-directory` is a directory that has one sub-directory per subject, and `your-bids-directory` is your empty BIDS directory that you wish to create.  
 
@@ -32,12 +33,12 @@ If you have multiple sessions, you'll need to call `bidsconv` for each session w
 
 ```
 $ bidsconv -d your-dicom-directory-ses-01 -o your-bids-directory \
--c your-bids-config-file.json -s ses-01
+  -c your-bids-config-file.json -s ses-01
 ```
 
 ```
 $ bidsconv -d your-dicom-directory-ses-02 -o your-bids-directory \ 
--c your-bids-config-file.json -s ses-02
+  -c your-bids-config-file.json -s ses-02
 ```
 
 The full CLI can be shown by calling `bidsconv -h`:

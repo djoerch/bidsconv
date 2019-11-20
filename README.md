@@ -1,6 +1,6 @@
 # bidsconv
 
-Like putting your fMRI data into [BIDS](https://bids.neuroimaging.io/) format? Like using [`dcm2bids`](https://cbedetti.github.io/Dcm2Bids/) to do so? Too lazy to use a for-loop to iterate through each subject and call `dcm2bids`? If you're like me and answered yes to all of the above, then `bidsconv` is for you!
+Like putting your fMRI data into [BIDS](https://bids.neuroimaging.io/) format? Like using [`dcm2bids`](https://cbedetti.github.io/Dcm2Bids/) to do so? Too lazy to use a for-loop to iterate through each subject and call `dcm2bids`? Want to automatically generate most of the metadata files for BIDS? If you're like me and answered yes to all of the above, then `bidsconv` is for you!
 
 Bidsconv is a multi-subject wrapper for `dcm2bids`, which lets you easily convert full data sets into BIDS format. Nothing special to it other than looping over multiple subject and session directories! `bidsconv` will also create your `participants.tsv` file, as well as blank `README`, `CHANGES` and `dataset_description.json` files.  
 

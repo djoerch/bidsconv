@@ -28,10 +28,17 @@ Where `your-dicom-directory` is a directory that has one sub-directory per subje
 
 `your-bids-config-file.json` is the configuration file, and follows the exact same format as the one used by `dcm2bids` (see example [here](https://github.com/cbedetti/Dcm2Bids/blob/master/example/config.json)). Refer to `dcm2bids` for documentation.
 
-If you have multiple sessions, you'll need to call `bidsconv` for each session:
+If you have multiple sessions, you'll need to call `bidsconv` for each session with the appropriate session label:
 
-`bidsconv -d your-dicom-directory-ses-01 -o your-bids-directory -c your-bids-config-file.json -s ses-01`
-`bidsconv -d your-dicom-directory-ses-02 -o your-bids-directory -c your-bids-config-file.json -s ses-02`
+```
+$ bidsconv -d your-dicom-directory-ses-01 -o your-bids-directory \
+-c your-bids-config-file.json -s ses-01
+```
+
+```
+$ bidsconv -d your-dicom-directory-ses-02 -o your-bids-directory \ 
+-c your-bids-config-file.json -s ses-02
+```
 
 The full CLI can be shown by calling `bidsconv -h`:
 

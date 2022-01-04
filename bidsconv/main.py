@@ -39,14 +39,20 @@ def _cli_parser():
                              'input dicom folders (keys) and subject IDs (values). '
                              'Useful for multi-session data in which different '
                              'dicom folders belong to the same subject.')
+    parser.add_argument('-l', '--log-level', type=str.upper,
+                        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+                        help='Set logging level of dcm2bids.')
     return parser.parse_args()
 
 
-def _run_dcm2bids(sub_id, config, output_path, dicom_path, session=None):
+def _run_dcm2bids(sub_id, config, output_path, dicom_path, session=None,
+                  log_level=None):
     cmd_str = "dcm2bids -p {} -c {} -o {} -d '{}'".format(sub_id, config,
                                                           output_path, dicom_path)
     if session is not None:
         cmd_str += " -s {}".format(session)
+    if log_level is not None:
+        cmd_str += " -l {}".format(log_level)
     print(cmd_str)
     subprocess.run(cmd_str, shell=True)
 
@@ -116,7 +122,7 @@ def main():
         sub_data.append([sub_id, dirname])
 
         _run_dcm2bids(sub_id, params['c'], params['o'], in_path,
-                      session=params['s'])
+                      session=params['s'], log_level=params['log_level'])
 
         if params['force_run_labels']:
 
